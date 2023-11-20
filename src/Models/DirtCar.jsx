@@ -9,20 +9,65 @@ import {
 
 import carState from "../CarState.json";
 import Overlay from "../Components/Overlay";
+import { Suspense } from "react";
+import { CanvasLoader } from "../Components/CanvasLoader";
+import { Volume2, VolumeX } from "lucide-react";
+import { useState } from "react";
 
 const DirtCar = () => {
-  const sheet = getProject("Dirt Car", { state: carState }).sheet("Sheet");
+  const vAudio = document.getElementById("divAudio");
+  const [play, setPlay] = useState(false);
 
+  const sheet = getProject("Dirt Car", { state: carState }).sheet("Sheet");
   return (
-    <div className="canvas-container">
-      <Canvas gl={{ preserveDrawingBuffer: true }}>
-        <ScrollControls pages={5}>
-          <Overlay />
-          <SheetProvider sheet={sheet}>
-            <Scene />
-          </SheetProvider>
-        </ScrollControls>
-      </Canvas>
+    <div>
+      {play ? (
+        <button
+          className="fixed top-3 right-4 z-[99999] border-black border py-1 px-2"
+          onClick={() => {
+            if (play) {
+              setPlay(false);
+              vAudio.pause();
+            }
+          }}
+        >
+          <VolumeX className="h-5 w-5" />
+        </button>
+      ) : (
+        <button
+          className="fixed top-3 right-4 z-[99999]  border-black border py-1 px-2"
+          onClick={() => {
+            if (!play) {
+              setPlay(true);
+              vAudio.play();
+            }
+          }}
+        >
+          <Volume2 className="h-5 w-5" />
+        </button>
+      )}
+
+      <audio id="divAudio" loop>
+        <source src="/fool.mp3" type="audio/mp3"></source>
+      </audio>
+      <div className="w-screen h-screen hidden lg:block">
+        <Canvas gl={{ preserveDrawingBuffer: true }}>
+          <Suspense fallback={<CanvasLoader />}>
+            <ScrollControls pages={5}>
+              <Overlay />
+              <SheetProvider sheet={sheet}>
+                <Scene />
+              </SheetProvider>
+            </ScrollControls>
+          </Suspense>
+        </Canvas>
+      </div>
+
+      <div className="flex lg:hidden h-screen w-screen justify-center items-center">
+        <p className="text-4xl font-extrabold text-center">
+          Sorry Mate! Only Available on large devices ;)
+        </p>
+      </div>
     </div>
   );
 };
