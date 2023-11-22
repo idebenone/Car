@@ -33,10 +33,10 @@ const Overlay = () => {
     const newOpacityValues = {
       ...opacityValues,
       firstSection: 1 - scroll.range(0, 0.07),
-      secondSection: scroll.curve(0.25, 0.07),
-      lastSection: scroll.curve(0.5, 0.07),
-      fourthSection: scroll.curve(0.75, 0.07),
-      fifthSection: scroll.curve(0.95, 0.1),
+      secondSection: scroll.curve(0.18, 0.15),
+      lastSection: scroll.curve(0.42, 0.16),
+      fourthSection: scroll.curve(0.66, 0.18),
+      fifthSection: scroll.curve(0.91, 0.16),
     };
     setOpacityValues(newOpacityValues);
   });
@@ -100,8 +100,8 @@ const Overlay = () => {
         <Section opacity={opacityValues.fourthSection}>
           <div className="relative h-screen w-screen">
             <div className="absolute w-full h-full px-20 xl:px-40 flex items-center">
-              <div className="flex flex-col w-full items-end">
-                <p className="font-bold text-7xl xl:text-9xl leading-[90px] xl:leading-[140px] normal-case w-1/2 text-right tracking-tighter">
+              <div className="flex flex-col w-full items-center">
+                <p className="font-bold text-7xl xl:text-9xl leading-[90px] xl:leading-[140px] normal-case  tracking-tighter">
                   Beyond Boundaries
                 </p>
                 <hr className="border border-gray-400 w-1/4 mt-8" />

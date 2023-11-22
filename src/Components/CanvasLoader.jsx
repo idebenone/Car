@@ -4,7 +4,7 @@ export const CanvasLoader = () => {
   const { progress } = useProgress();
   return (
     <Html as="div" center>
-      <p>{progress.toFixed(0)}%</p>
+      <p className="text-8xl font-bold">{progress.toFixed(0)}</p>
     </Html>
   );
 };
